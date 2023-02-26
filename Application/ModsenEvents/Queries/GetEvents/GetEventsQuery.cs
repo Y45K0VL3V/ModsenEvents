@@ -3,7 +3,7 @@ using Application.DTO;
 
 namespace Application.ModsenEvents.Queries.GetEvents
 {
-    public class GetEventsCommand : IQuery<IEnumerable<ModsenEventDTO>>
+    public class GetEventsQuery : IQuery<IEnumerable<ModsenEventDTO>>
     {
     }
 }
