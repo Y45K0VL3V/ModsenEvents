@@ -1,4 +1,7 @@
+using Application.Mappers.Mapster;
 using Infrastructure.DB.Contexts;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 builder.Services.AddDbContext<ModsenDbContext>(options =>
 {
@@ -32,3 +37,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
