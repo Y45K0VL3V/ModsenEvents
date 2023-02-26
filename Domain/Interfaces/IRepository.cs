@@ -4,10 +4,10 @@ namespace Domain.Interfaces
 {
     public interface IRepository<T> where T : EntityBase
     {
-        IEnumerable<T> List();
-        IEnumerable<T> List(ISpecification<T> specification);
-        void Add(T entity);
-        void Delete(T entity);
-        void Edit(T entity);
+        Task<IEnumerable<T>> ListAsync();
+        Task<IEnumerable<T>> ListAsync(ISpecification<T> specification);
+        Task AddAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task EditAsync(T entity);
     }
 }
