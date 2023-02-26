@@ -3,6 +3,7 @@ using Infrastructure.DB.Contexts;
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -13,6 +14,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddLogging();
 
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
@@ -29,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
 
 app.UseHttpsRedirection();
 
