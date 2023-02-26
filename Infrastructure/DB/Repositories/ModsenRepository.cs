@@ -14,30 +14,30 @@ namespace Infrastructure.DB.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(T entity)
+        public async Task AddAsync(T entity, CancellationToken token = default)
         {
             _dbContext.Set<T>().Add(entity);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(token);
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity, CancellationToken token = default)
         {
             _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(token);
         }
 
-        public async Task EditAsync(T entity)
+        public async Task EditAsync(T entity, CancellationToken token = default)
         {
             _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(token);
         }
 
-        public async Task<IEnumerable<T>> ListAsync()
+        public async Task<IEnumerable<T>> ListAsync(CancellationToken token = default)
         {
-            return await _dbContext.Set<T>().ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync(token);
         }
 
-        public async Task<IEnumerable<T>> ListAsync(ISpecification<T> specification)
+        public async Task<IEnumerable<T>> ListAsync(ISpecification<T> specification, CancellationToken token = default)
         {
             var queryableResultWithIncludes = specification.Includes
                 .Aggregate(_dbContext.Set<T>().AsQueryable(),
@@ -49,7 +49,7 @@ namespace Infrastructure.DB.Repositories
 
             return await secondaryResult
                             .Where(specification.Criteria)
-                            .ToListAsync();
+                            .ToListAsync(token);
         }
     }
 }
