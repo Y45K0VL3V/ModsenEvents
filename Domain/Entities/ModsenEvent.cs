@@ -14,6 +14,6 @@ namespace Domain.Entities
 
         //// TODO : check links types
         //public string Creator { get; }
-        //public DateTime CreationDateUtc { get; } = DateTime.UtcNow;
+        public DateTime CreationDateUtc { get; } = DateTime.UtcNow;
     }
 }

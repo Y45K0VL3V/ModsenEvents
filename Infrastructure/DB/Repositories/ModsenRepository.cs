@@ -20,10 +20,20 @@ namespace Infrastructure.DB.Repositories
             await _dbContext.SaveChangesAsync(token);
         }
 
-        public async Task DeleteAsync(T entity, CancellationToken token = default)
+        public async Task DeleteAsync(Guid id, CancellationToken token = default)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync(token);
+            var entity = await _dbContext.Set<T>().FindAsync(id);
+
+            if (entity is not null)
+            {
+                _dbContext.Set<T>().Remove(entity);
+                await _dbContext.SaveChangesAsync(token);
+            }
+            else
+            {
+                throw new Exception();
+            }
+
         }
 
         public async Task EditAsync(T entity, CancellationToken token = default)

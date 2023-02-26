@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Shared
+﻿namespace Domain.Shared
 {
     public class Result
     {
-        public Result(bool isSuccess, Error error) 
+        protected internal Result(bool isSuccess, Error error) 
         {
             if (!(isSuccess ^ error == Error.None))
                 throw new InvalidOperationException();
@@ -21,5 +15,6 @@ namespace Domain.Shared
         public Error Error { get; private set; }
 
         public static Result Success() => new(true, Error.None);
+        public static Result Failure(Error error) => new(false, error);
     }
 }
