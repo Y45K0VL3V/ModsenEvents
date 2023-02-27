@@ -12,12 +12,14 @@ namespace Application.ModsenEvents.Queries.GetEventById
 {
     public class GetEventByIdQueryHandler : IQueryHandler<GetEventByIdQuery, ModsenEventDTO>
     {
-        public GetEventByIdQueryHandler(IRepository<ModsenEvent> eventRepository)
+        public GetEventByIdQueryHandler(IMapper mapper, IRepository<ModsenEvent> eventRepository)
         {
             _eventRepository = eventRepository;
+            _mapper = mapper;
         }
 
         private readonly IRepository<ModsenEvent> _eventRepository;
+        private readonly IMapper _mapper;
 
         public async Task<Result<ModsenEventDTO>> Handle(GetEventByIdQuery request, CancellationToken cancellationToken = default)
         {
@@ -27,7 +29,7 @@ namespace Application.ModsenEvents.Queries.GetEventById
             try
             {
                 var events = await _eventRepository.ListAsync(spec, cancellationToken);
-                var eventDTO = events.FirstOrDefault()?.Adapt<ModsenEventDTO>();
+                var eventDTO = _mapper.Map<ModsenEventDTO>(events?.FirstOrDefault());
 
                 if (eventDTO is not null)
                 {

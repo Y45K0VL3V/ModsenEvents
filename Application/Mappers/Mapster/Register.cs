@@ -9,7 +9,13 @@ namespace Application.Mappers.Mapster
         void IRegister.Register(TypeAdapterConfig config)
         {
             config.NewConfig<ModsenEvent, ModsenEventDTO>()
-                  .RequireDestinationMemberSource(true);
+                .Map(eDTO => eDTO.DateTimeUTC, e => e.DateUtc.ToDateTime(e.TimeUtc))
+                .RequireDestinationMemberSource(true);
+
+            config.NewConfig<ModsenEventDTO, ModsenEvent>()
+                .Map(e => e.DateUtc, eDTO => DateOnly.FromDateTime(eDTO.DateTimeUTC))
+                .Map(e => e.TimeUtc, eDTO => TimeOnly.FromDateTime(eDTO.DateTimeUTC))
+                .RequireDestinationMemberSource(true);
         }
     }
 }

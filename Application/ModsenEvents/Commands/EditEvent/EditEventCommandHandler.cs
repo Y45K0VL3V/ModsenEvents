@@ -20,7 +20,7 @@ namespace Application.ModsenEvents.Commands.EditEvent
 
         public async Task<Result> Handle(EditEventCommand request, CancellationToken cancellationToken = default)
         {
-            ModsenEvent modsenEvent = request.EventDTO.Adapt<ModsenEvent>();
+            ModsenEvent modsenEvent = _mapper.Map<ModsenEvent>(request.EventDTO);
             try
             {
                 await _eventRepository.EditAsync(modsenEvent, cancellationToken);

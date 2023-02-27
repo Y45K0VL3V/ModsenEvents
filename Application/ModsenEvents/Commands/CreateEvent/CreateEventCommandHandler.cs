@@ -20,7 +20,7 @@ namespace Application.ModsenEvents.Commands.CreateEvent
 
         public async Task<Result> Handle(CreateEventCommand request, CancellationToken cancellationToken = default)
         {
-            ModsenEvent modsenEvent = request.EventDTO.Adapt<ModsenEvent>();
+            ModsenEvent modsenEvent = _mapper.Map<ModsenEvent>(request.EventDTO);
             try
             {
                 await _eventRepository.AddAsync(modsenEvent, cancellationToken);
