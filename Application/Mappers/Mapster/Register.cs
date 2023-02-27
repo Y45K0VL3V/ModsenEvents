@@ -10,6 +10,7 @@ namespace Application.Mappers.Mapster
         {
             config.NewConfig<ModsenEvent, ModsenEventDTO>()
                 .Map(eDTO => eDTO.DateTimeUTC, e => e.DateUtc.ToDateTime(e.TimeUtc))
+                .Map(eDTO => eDTO.Id, e => e.Id)
                 .RequireDestinationMemberSource(true);
 
             config.NewConfig<ModsenEventDTO, ModsenEvent>()

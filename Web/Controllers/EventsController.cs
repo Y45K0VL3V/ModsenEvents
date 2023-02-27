@@ -4,6 +4,7 @@ using Application.ModsenEvents.Commands.DeleteEvent;
 using Application.ModsenEvents.Commands.EditEvent;
 using Application.ModsenEvents.Queries.GetEventById;
 using Application.ModsenEvents.Queries.GetEvents;
+using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,12 +27,9 @@ namespace Web.Controllers
         public async Task<ActionResult> GetEventById(Guid eventId, CancellationToken token)
         {
             var query = new GetEventByIdQuery(eventId);
-            var eventDTO = (await _sender.Send(query, token)).Value;
+            var result = await _sender.Send(query, token);
 
-            if (eventDTO is not null)
-                return Ok(eventDTO);
-            else
-                return NotFound();
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpGet()]
@@ -40,12 +38,9 @@ namespace Web.Controllers
         public async Task<ActionResult> GetEvents(CancellationToken token)
         {
             var query = new GetEventsQuery();
-            var eventsDTO = (await _sender.Send(query, token)).Value;
+            var result = await _sender.Send(query, token);
 
-            if (eventsDTO is not null)
-                return Ok(eventsDTO);
-            else
-                return NotFound();
+            return result.IsSuccess ? Ok(result.Value) : NotFound();
         }
 
         [HttpPost("add")]
@@ -55,7 +50,8 @@ namespace Web.Controllers
         {
             var query = new CreateEventCommand(eventDTO);
             var result = await _sender.Send(query, token);
-            return Ok(result);
+
+            return result.IsSuccess ? Ok(result) : BadRequest();
         }
 
         [HttpPut("edit")]
@@ -65,7 +61,8 @@ namespace Web.Controllers
         {
             var query = new EditEventCommand(eventDTO);
             var result = await _sender.Send(query, token);
-            return Ok(result);
+
+            return result.IsSuccess ? Ok(result) : BadRequest();
         }
 
         [HttpDelete("delete/{eventId:guid}")]
@@ -75,7 +72,8 @@ namespace Web.Controllers
         {
             var query = new DeleteEventCommand(eventId);
             var result = await _sender.Send(query, token);
-            return Ok(result);
+
+            return result.IsSuccess ? Ok(result) : BadRequest();
         }
     }
 }
