@@ -11,9 +11,5 @@ namespace Domain.Entities
         public DateOnly DateUtc { get; set; }
         public TimeOnly TimeUtc { get; set; }
         public string Place { get; set; }
-
-        //// TODO : check links types
-        //public string Creator { get; }
-        public DateTime CreationDateUtc { get; } = DateTime.UtcNow;
     }
 }

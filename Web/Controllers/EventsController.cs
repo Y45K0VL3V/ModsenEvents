@@ -4,7 +4,6 @@ using Application.ModsenEvents.Commands.DeleteEvent;
 using Application.ModsenEvents.Commands.EditEvent;
 using Application.ModsenEvents.Queries.GetEventById;
 using Application.ModsenEvents.Queries.GetEvents;
-using Domain.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

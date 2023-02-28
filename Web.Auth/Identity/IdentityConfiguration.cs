@@ -33,8 +33,7 @@ namespace Web.Auth.Identity
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("ModsenEvents.read"),
-                new ApiScope("ModsenEvents.write"),
+                new ApiScope("ModsenEvents.ultimate"),
             };
 
         public static IEnumerable<ApiResource> ApiResources =>
@@ -42,7 +41,7 @@ namespace Web.Auth.Identity
             {
                 new ApiResource("ModsenEvents")
                 {
-                    Scopes = new List<string>{ "ModsenEvents.read", "ModsenEvents.write" },
+                    Scopes = new List<string>{ "ModsenEvents.ultimate" },
                     ApiSecrets = new List<Secret>{ new Secret("ModsenSecret".Sha256()) }
                 }
             };
@@ -56,7 +55,7 @@ namespace Web.Auth.Identity
                     ClientName = "Client Credentials Client",
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     ClientSecrets = { new Secret("ModsenSecret".Sha256()) },
-                    AllowedScopes = { "ModsenEvents.read" }
+                    AllowedScopes = { "ModsenEvents.ultimate" }
                 },
             };
     }

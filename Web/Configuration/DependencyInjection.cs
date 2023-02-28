@@ -1,12 +1,4 @@
-﻿using Domain.Entities;
-using Domain.Interfaces;
-using Infrastructure.DB.Contexts;
-using Infrastructure.DB.Repositories;
-using Mapster;
-using MapsterMapper;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection;
+﻿using System.Reflection;
 using TinyHelpers.Extensions;
 using Web.Configuration.ServiceInstallers;
 
