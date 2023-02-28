@@ -14,7 +14,7 @@ namespace Web.Configuration.ServiceInstallers
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n" +
-                                   "Enter your bearer token in the text input below.",
+                                  "Enter your bearer token in the text input below.",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.Http,
