@@ -6,12 +6,14 @@ using Application.ModsenEvents.Queries.GetEventById;
 using Application.ModsenEvents.Queries.GetEvents;
 using Domain.Shared;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
 {
     [ApiController]
     [Route("api/events")]
+    [Authorize]
     public class EventsController : ControllerBase
     {
         public EventsController(ISender sender)

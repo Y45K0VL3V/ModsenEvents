@@ -7,6 +7,7 @@ namespace Application.ModsenEvents.Commands.CreateEvent
     {
         public CreateEventCommand(ModsenEventDTO eventDTO) 
         {
+            eventDTO.Id = Guid.Empty;
             EventDTO = eventDTO;
         }
 
